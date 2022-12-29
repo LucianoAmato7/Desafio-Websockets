@@ -1,0 +1,85 @@
+<div class="container mt-3">
+    <div class="jumbotron">
+
+        <h1 style="color:blue;">Ingrese datos</h1>
+        <br/>
+        <form action="/productos" method="post">
+
+            <div class="form-group">
+                <label for="nombre"><b>Nombre</b></label>
+                <input type="text" id="nombre" class="form-control" name="title">
+            </div>
+
+            <div class="form-group">
+                <label for="Precio"><b>Precio</b></label>
+                <input type="number" id="Precio" class="form-control" name="price">
+            </div>
+
+            <div class="form-group">
+                <label for="URLImagen"><b>URL imagen</b></label>
+                <input type="url" id="URLImagen" class="form-control" name="thumbnail">
+            </div>
+
+            <div class="d-flex flex-row justify-content-between mt-5">
+                <button type="submit" value="Enviar datos" class="btn btn-success" id="enviar">Enviar</button>
+                <a href="/productos" method="GET" class="bg-primary text-white border rounded p-2">Vista de Productos</a>
+            </div>
+        </form>
+
+        <br/>
+
+        <div class="border-top border-dark mt-3 pt-5" id="vistaContainer">
+
+            {{!-- {{#if productos}}
+                <div class="table-responsive">
+                    <table class="table table-dark">
+                        <tr class="text-white fw-bold"> 
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Imagen</th>
+                        </tr>
+
+                        {{#each productos}}
+                            <tr>
+                                <td class="align-middle">{{id}}</td>
+                                <td class="align-middle">{{title}}</td>
+                                <td class="align-middle">${{price}}</td>
+                                <td class="align-middle">
+                                    <img src={{thumbnail}} style="width: 80px">
+                                </td>
+                            </tr>
+                        {{~/each}}
+
+                    </table>
+                </div>
+            {{^}}
+                <h3 class="alert alert-danger">No se encontraron productos</h3>
+            {{/if}} --}}
+
+        </div>
+
+    </div>
+</div>    
+
+<div class="container">
+    <div class="jumbotron">
+
+        <h1 style="color:blue;">Centro de Mensajes</h1>
+        <br/>
+
+        <div class="border-top pt-3 border-dark">
+            <input id="enviarEmail" type="text" placeholder="luciano@gmail.com">
+
+            <br/>
+
+            <p></p>
+
+            <input id="enviarMsj" class="mr-2" type="text" placeholder="ingresá un mensaje...">
+            <span>
+                <button onclick="return AddMensaje(this)" class="bg-primary text-white border rounded p-2" id="btnEnviarMsj">Enviar!</button>
+            </span>
+        </div>
+
+    </div>
+</div>

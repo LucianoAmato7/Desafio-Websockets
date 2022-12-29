@@ -1,0 +1,19 @@
+{
+    "type": "module",
+    "name": "websockets",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "test": "echo \"Error: no test specified\" && exit websockets"
+    },
+    "keywords": [],
+    "author": "lucianoAmato",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.18.2",
+        "express-handlebars": "^5.2.0",
+        "socket.io": "^4.5.4"
+    }
+}

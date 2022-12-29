@@ -68,16 +68,16 @@
         <h1 style="color:blue;">Centro de Mensajes</h1>
         <br/>
 
-        <div class="border-top pt-3 border-dark">
-            <input id="enviarEmail" type="text" placeholder="luciano@gmail.com">
+        <input id="enviarEmail" type="text" placeholder="luciano@gmail.com">
+        <div class="border-top pt-1 border-dark mt-3">
 
             <br/>
 
-            <p></p>
+            <div id="contenedorMsj" class="mb-3"></div>
 
             <input id="enviarMsj" class="mr-2" type="text" placeholder="ingresá un mensaje...">
             <span>
-                <button onclick="return AddMensaje(this)" class="bg-primary text-white border rounded p-2" id="btnEnviarMsj">Enviar!</button>
+                <button onclick="AddMensaje(this)" class="bg-primary text-white border rounded p-2" id="btnEnviarMsj">Enviar!</button>
             </span>
         </div>
 

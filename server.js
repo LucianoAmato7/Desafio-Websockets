@@ -25,7 +25,6 @@ app.set('view engine', "hbs");
 app.set("views", "./views");
 
 app.use(express.static('views/layouts'));
-app.use(express.static('public'));
 
 const api = new Api()
 
@@ -65,7 +64,7 @@ io.on('connection', socket => {
     socket.emit('mensajes', msjRecord.MsjTodos())
 
     socket.on('nuevo-mensaje', data => {
-        io.sockets.emit('mensaje', guardarMsj(data))
+        io.sockets.emit('mensajes', msjRecord.guardarMsj(data))
     })
 
 });

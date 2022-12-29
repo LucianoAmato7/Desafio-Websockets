@@ -50,8 +50,12 @@ let socket = io.connect();
 // MENSAJES CLIENTE SERVIDOR
 
 socket.on('mensajes', data => {
-    console.log(data);
-    document.querySelector('p').innerHTML = data.map( msj => `${msj.email} [ ${msj.fyh} ]: ${msj.mensaje}`).join('<br>')
+    console.log('main.js:' + data);
+    document.getElementById('contenedorMsj').innerHTML = data.map( msj => 
+        `<span class="text-primary fw-bold">${msj.email}</span>
+        <span class="text-danger">[ ${msj.fyh} ]</span>: 
+        <span class="text-success">${msj.mensaje}</span>`
+    ).join('<br>')
 })
 
 const AddMensaje = (e) => {

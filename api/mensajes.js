@@ -1,40 +1,39 @@
-// import fs from 'fs'
+import fs from 'fs'
 
-// const dataJSON = fs.readFileSync('./mensajes.txt', 'utf-8');
-// const msjTxt = JSON.parse(dataJSON)
+const dataJSON = fs.readFileSync('./api/mensajes.txt', 'utf-8');
+const msjTxt = JSON.parse(dataJSON)
 
 class MensajesRecord {
 
     constructor() {
-        this.mensajes = [
-            {email: "prueba", fyh: "DD/MM/YYYY HH:MM:SS", mensaje: "hola que tal"}
-        ]
+        this.mensajes = msjTxt
     }
 
     guardarMsj( data ) {
         
+        console.log(data);
+
         this.mensajes.push(data)
 
-        return this.mensajes
+        async function guardarMsj_()  {
 
-        // async function guardarMsj_()  {
+            try{
 
-        //     try{
+                await fs.promises.writeFile('./mensajes.txt', JSON.stringify( this.mensajes, null, '\t'))
 
-        //         await fs.promises.writeFile('./mensajes.txt', JSON.stringify( msjTxt, null, '\t'))
+                console.log(`mensaje guardado en archivo`);
 
-        //         console.log(`mensaje guardado en archivo`);
+                return this.mensajes
 
+            }catch (err) {
 
-        //     }catch (err) {
+                console.log(`Se ha producido un error: ${err}`);
 
-        //         console.log(`Se ha producido un error: ${err}`);
-
-        //     } 
+            } 
             
-        // }
+        }
 
-        // guardarMsj_()
+        guardarMsj_()
 
     }
 

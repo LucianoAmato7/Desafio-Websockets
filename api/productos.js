@@ -36,8 +36,6 @@ class Api {
 
         this.productos.push( prod )
     
-        return prod
-
     }
 
 }

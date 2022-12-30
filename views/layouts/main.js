@@ -1,64 +1,62 @@
 let socket = io.connect();
 
-// socket.on('productos', function(productos) {
+// VISTA DE PRODUCTOS
 
-//     console.log(productos);
+socket.on('productos', data => {
 
-//     if(productos) {
+    if(data) {
 
-//         document.getElementById('vistaContainer').innerHTML = `
-//         <div class="table-responsive">
-//             <table class="table table-dark" id="tabla">
-//                 <tr class="text-white fw-bold"> 
-//                     <th>ID</th>
-//                     <th>Nombre</th>
-//                     <th>Precio</th>
-//                     <th>Imagen</th>
-//                 </tr>
-//             </table>
-//         </div>`;
+        document.getElementById('vistaContainer').innerHTML =`
+        <div class="table-responsive">
+            <table class="table table-dark">
+                <tr class="text-white fw-bold"> 
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Imagen</th>
+                </tr>
+                ${data.map( prod =>
+                    `<tr>
+                        <td class="align-middle">${prod.id}</td>
+                        <td class="align-middle">${prod.title}</td>
+                        <td class="align-middle">${prod.price}</td>
+                        <td class="align-middle">
+                            <img src=${prod.thumbnail} style="width: 80px">
+                        </td>
+                    </tr>`
+                )}
+            </table>
+        </div>`;
 
-//         const tablaProds = productos.map( prod =>
-//             `<tr>
-//                 <td class="align-middle">${prod.id}</td>
-//                 <td class="align-middle">${prod.title}</td>
-//                 <td class="align-middle">${prod.price}</td>
-//                 <td class="align-middle">
-//                     <img src=${prod.thumbnail} style="width: 80px">
-//                 </td>
-//             </tr>` 
-//         )
+    } else {
 
-//         document.getElementById('tabla').appendChild(tablaProds)
+        document.getElementById('vistaContainer').innerHTML = '<h3 class="alert alert-danger">No se encontraron productos</h3>'
 
-//     } else {
+    }
+});
 
-//         document.getElementById('vistaContainer').innerHTML = '<h3 class="alert alert-danger">No se encontraron productos</h3>'
-
-//     }
-
-// });
-
-// let button = document.querySelector('enviar')
-
-// button.addEventListener('click', () => {
-//     console.log('clickeado boton de enviar');
-//     socket.emit('productos')
-// } )
+function AddProducto(e){
+    const productoN = {
+        title: document.getElementById('nombre').value,
+        price: document.getElementById('Precio').value,
+        thumbnail: document.getElementById('URLImagen').value
+    }
+    socket.emit('nuevo-producto', productoN);
+    return false;
+}
 
 
-// MENSAJES CLIENTE SERVIDOR
+// CENTRO DE MENSAJES
 
 socket.on('mensajes', data => {
-    console.log('main.js:' + data);
     document.getElementById('contenedorMsj').innerHTML = data.map( msj => 
-        `<span class="text-primary fw-bold">${msj.email}</span>
+        `<span class="text-primary"><strong>${msj.email}</strong></span>
         <span class="text-danger">[ ${msj.fyh} ]</span>: 
-        <span class="text-success">${msj.mensaje}</span>`
+        <span class="text-success fst-italic">${msj.mensaje}</span>`
     ).join('<br>')
 })
 
-const AddMensaje = (e) => {
+function AddMensaje(e) {
     const mensaje = {
         email: document.getElementById('enviarEmail').value,
         fyh: new Date().toLocaleString(),

@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-const dataJSON = fs.readFileSync('./api/mensajes.txt', 'utf-8');
+const dataJSON = fs.readFileSync('./mensajes.txt', 'utf-8');
 const msjTxt = JSON.parse(dataJSON)
 
 class MensajesRecord {
@@ -10,8 +10,6 @@ class MensajesRecord {
     }
 
     guardarMsj( data ) {
-        
-        console.log(data);
 
         this.mensajes.push(data)
 
@@ -19,11 +17,9 @@ class MensajesRecord {
 
             try{
 
-                await fs.promises.writeFile('./mensajes.txt', JSON.stringify( this.mensajes, null, '\t'))
+                await fs.promises.writeFile('./mensajes.txt', JSON.stringify( msjTxt, null, '\t'))
 
-                console.log(`mensaje guardado en archivo`);
-
-                return this.mensajes
+                console.log(`Historial de mensajes actualizado`);
 
             }catch (err) {
 

@@ -2,11 +2,10 @@ import express from "express";
 import Api from "./api/productos.js";
 import MensajesRecord from "./api/mensajes.js";
 import handlebars from 'express-handlebars'
-const app = express()
-
 import { Server } from 'socket.io';
 import { createServer } from 'http';
 
+const app = express()
 const server = createServer(app); 
 const io = new Server(server);
 
@@ -30,6 +29,8 @@ const api = new Api()
 
 const msjRecord = new MensajesRecord()
 
+let mensajesN = msjRecord.MsjTodos()
+
 let productos = api.productosTodos()
 
 
@@ -38,24 +39,9 @@ let productos = api.productosTodos()
 
 
 app.get('/', (req, res) => {
-    res.render('formulario', {productos})
-
+    res.render('formulario')
 });
 
-app.get('/productos', (req, res) => {
-    res.render('vista', {productos});
-});
-
-app.post('/productos', (req, res) => {
-
-    let newProd = req.body
-
-    api.guardar( newProd )
-
-    console.log("Producto guardado");
-
-    res.redirect('/')
-});
 
 // CHAT CLIENTE SERVIDOR
 io.on('connection', socket => {
@@ -64,7 +50,16 @@ io.on('connection', socket => {
     socket.emit('mensajes', msjRecord.MsjTodos())
 
     socket.on('nuevo-mensaje', data => {
-        io.sockets.emit('mensajes', msjRecord.guardarMsj(data))
+        msjRecord.guardarMsj(data)
+        io.sockets.emit('mensajes', mensajesN)
+    })
+
+    socket.emit('productos', productos)
+
+    socket.on('nuevo-producto', data => {
+        api.guardar(data)
+        console.log('Producto Guardado');
+        io.sockets.emit('productos', productos)
     })
 
 });
